@@ -14,18 +14,15 @@ const COL_EVENTS = 'events';
 let db, auth;
 let syncStatusCallback = null;
 
-// TODO: create a dedicated Firebase project for Ledger (e.g. "ledger-journal-db")
-// and replace the values below with the project's web-app config. Until then,
-// the app will fail to initialise — set the project, then this works the same
-// way stoa does.
+// Ledger has its own dedicated Firebase project (ledger-journal-db).
 export function initFirebase() {
   const app = initializeApp({
-    apiKey: "REPLACE_ME",
+    apiKey: "AIzaSyC7Z_T_aufkRTYgUtcxkyfrSkNW4JwEkVk",
     authDomain: "ledger-journal-db.firebaseapp.com",
     projectId: "ledger-journal-db",
     storageBucket: "ledger-journal-db.firebasestorage.app",
-    messagingSenderId: "REPLACE_ME",
-    appId: "REPLACE_ME",
+    messagingSenderId: "620447706962",
+    appId: "1:620447706962:web:24e9f13333d921913c548b",
   });
   db = getFirestore(app);
   auth = getAuth(app);
