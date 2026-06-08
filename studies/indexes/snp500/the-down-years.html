@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Down Years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3efe6;
+    --paper-2:#ece6d8;
+    --ink:#211e19;
+    --ink-soft:#4a443b;
+    --ink-faint:#7c7468;
+    --rule:#d6cdbb;
+    --rule-soft:#e2dac9;
+    --accent:#8a2b22;       /* oxblood — the colour of the loss */
+    --accent-soft:#b5453a;
+    --gain:#3d5a3a;         /* muted laurel green — the recovery */
+    --gold:#9c7c3a;
+    --maxw:680px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(156,124,58,0.06), transparent 55%),
+      radial-gradient(ellipse at 90% 120%, rgba(138,43,34,0.05), transparent 50%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,serif;
+    font-weight:400;
+    font-size:19px;
+    line-height:1.72;
+    letter-spacing:0.003em;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* faint paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 26px 8rem}
+
+  /* ── masthead ── */
+  header.top{padding:5.5rem 0 0;text-align:center}
+  .kicker{
+    font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:500;
+  }
+  .kicker .dot{color:var(--accent);padding:0 0.45em}
+  h1{
+    font-weight:300;font-size:clamp(2.3rem,7vw,3.55rem);line-height:1.08;
+    letter-spacing:-0.012em;margin:1.5rem 0 0;
+  }
+  h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .byline{
+    margin-top:2.2rem;font-size:0.82rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .rule-orn{
+    width:60px;height:1px;background:var(--rule);margin:2.6rem auto 0;position:relative;
+  }
+  .rule-orn::after{
+    content:"§";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);
+    background:var(--paper);padding:0 0.5rem;color:var(--accent);font-size:0.95rem;
+  }
+
+  /* ── lede ── */
+  .lede{margin-top:3.2rem;font-size:1.16rem;line-height:1.7}
+  .lede::first-letter{
+    float:left;font-size:4.4rem;line-height:0.78;font-weight:300;
+    padding:0.32rem 0.7rem 0 0;color:var(--accent);font-style:italic;
+  }
+
+  /* ── sections ── */
+  section{margin-top:3.6rem}
+  .num{
+    font-size:0.78rem;letter-spacing:0.3em;color:var(--accent);font-weight:600;
+    display:block;margin-bottom:0.7rem;
+  }
+  h2{
+    font-weight:400;font-size:1.62rem;line-height:1.2;letter-spacing:-0.01em;
+    margin:0 0 1.1rem;
+  }
+  h2 em{font-style:italic;color:var(--accent)}
+  p{margin:0 0 1.25rem}
+  p+p{margin-top:-0.2rem}
+  strong{font-weight:600}
+  em{font-style:italic}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  a:hover{border-color:var(--accent)}
+  .src{color:var(--ink-faint);font-style:italic;font-size:0.94em}
+
+  /* ── data table ── */
+  .ledger{
+    margin:2rem 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .ledger table{width:100%;border-collapse:collapse;font-size:0.96rem}
+  .ledger caption{
+    caption-side:top;text-align:left;font-size:0.72rem;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--ink-faint);padding:0 0 0.7rem;
+  }
+  .ledger th{
+    text-align:right;font-weight:500;font-size:0.72rem;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--ink-faint);padding:0.55rem 0.5rem;
+    border-bottom:1px solid var(--rule);
+  }
+  .ledger th:first-child{text-align:left}
+  .ledger td{padding:0.5rem 0.5rem;text-align:right;border-bottom:1px solid var(--rule-soft)}
+  .ledger td:first-child{text-align:left;font-weight:500}
+  .ledger tr:last-child td{border-bottom:none}
+  .ledger .loss{color:var(--accent);font-weight:600}
+  .ledger .gain{color:var(--gain);font-weight:600}
+  .ledger .flat{color:var(--ink-faint);font-weight:600}
+  .ledger tr.heavy td{background:rgba(138,43,34,0.045)}
+  .ledger tfoot td{
+    border-top:1.5px solid var(--ink);border-bottom:none;
+    padding-top:0.6rem;font-size:0.92rem;
+  }
+  .ledger tfoot tr:first-child td{padding-top:0.8rem}
+  .ledger tfoot .flbl{text-align:left;font-weight:500;color:var(--ink-soft);font-style:italic}
+  .ledger tfoot .fval{font-weight:600;font-variant-numeric:tabular-nums}
+  .tnote{font-size:0.86rem;color:var(--ink-faint);margin-top:0.7rem;font-style:italic}
+
+  /* ── figure / svg ── */
+  figure{margin:2.6rem 0;text-align:center}
+  figure svg{max-width:100%;height:auto}
+  figcaption{
+    font-size:0.86rem;color:var(--ink-soft);line-height:1.55;margin-top:1rem;
+    text-align:left;border-left:2px solid var(--rule);padding-left:1rem;
+  }
+
+  /* ── callout ── */
+  .callout{
+    margin:2.4rem 0;padding:1.5rem 1.7rem;background:var(--paper-2);
+    border:1px solid var(--rule);border-left:3px solid var(--accent);
+  }
+  .callout .lbl{
+    font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;display:block;margin-bottom:0.6rem;
+  }
+  .callout p:last-child{margin-bottom:0}
+
+  /* ── card grid ── */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin:2.2rem 0}
+  .card{
+    background:var(--paper-2);border:1px solid var(--rule);padding:1.3rem 1.4rem;
+    position:relative;
+  }
+  .card .yr{
+    font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:600;
+  }
+  .card h3{font-weight:500;font-size:1.18rem;margin:0.3rem 0 0.55rem;line-height:1.2}
+  .card .big{
+    font-size:2.1rem;font-weight:300;color:var(--accent);line-height:1;
+    margin:0.2rem 0 0.7rem;font-variant-numeric:tabular-nums;
+  }
+  .card p{font-size:0.9rem;line-height:1.5;color:var(--ink-soft);margin:0}
+
+  /* ── pullquote ── */
+  blockquote{
+    margin:3rem 0;padding:0;border:none;text-align:center;
+    font-size:1.4rem;font-weight:300;font-style:italic;line-height:1.4;
+    color:var(--ink);
+  }
+  blockquote::before{content:"“";color:var(--accent);font-size:1.3em;line-height:0;vertical-align:-0.35em}
+  blockquote::after{content:"”";color:var(--accent);font-size:1.3em;line-height:0;vertical-align:-0.55em}
+
+  /* ── closing summary ── */
+  .coda{
+    margin:3.4rem 0 0;padding:2rem 0 0;border-top:2px solid var(--ink);
+  }
+  .coda p{font-size:1.02rem;line-height:1.65;margin-bottom:0.9rem}
+  .coda p strong{color:var(--accent)}
+
+  /* ── references ── */
+  .refs{margin-top:3.6rem;border-top:1px solid var(--rule);padding-top:1.6rem}
+  .refs h4{
+    font-size:0.72rem;letter-spacing:0.26em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:600;margin:0 0 1rem;
+  }
+  .refs ol{margin:0;padding-left:1.2rem;font-size:0.86rem;line-height:1.5;color:var(--ink-soft)}
+  .refs li{margin-bottom:0.6rem}
+  .refs em{font-style:italic}
+
+  .end{text-align:center;margin-top:3rem;color:var(--ink-faint);font-style:italic;font-size:0.9rem}
+
+  @media (max-width:560px){
+    body{font-size:18px}
+    .cards{grid-template-columns:1fr}
+    .ledger table{font-size:0.88rem}
+    .ledger th,.ledger td{padding:0.45rem 0.3rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">Study<span class="dot">·</span>on markets<span class="dot">·</span>part I</div>
+    <h1>The line falls <em>one year in four</em>&nbsp;— and you are not told which.</h1>
+    <div class="byline">A short study on drawdowns &amp; the temperament they demand</div>
+    <div class="rule-orn"></div>
+  </header>
+
+  <p class="lede">There is a story we tell about the stock market in which the line goes up. It is true over a long enough horizon and badly false over any short one. The S&amp;P 500 has spent roughly one calendar year in four going <em>down</em> — sometimes a polite single-digit dip, sometimes losing more than a third of its value in twelve months. The down years are not anomalies in the trend. They <em>are</em> the trend. The only thing hidden from you is the order in which they arrive.</p>
+
+  <section>
+    <span class="num">I.</span>
+    <h2>The down years, <em>counted.</em></h2>
+    <p>Since the index took its modern 500-stock form in 1957, it has closed lower than it opened in a little over a quarter of all years. Over the full span back to 1928, the count is steadier than memory suggests: up in roughly 73% of years, down in the other 27% — which works out to a losing year, on average, about once every four. Here are the ones worth remembering, measured the way you asked: the index level the year began at against the level it closed at. These are <em>price</em> figures — the line itself, dividends set aside.</p>
+
+    <div class="ledger">
+      <table>
+        <caption>S&amp;P 500 — selected losing years, by index level</caption>
+        <thead>
+          <tr><th>Year</th><th>Opened near</th><th>Closed at</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1973</td><td>118.05</td><td>97.55</td><td class="loss">−17.4%</td></tr>
+          <tr class="heavy"><td>1974</td><td>97.55</td><td>68.56</td><td class="loss">−29.7%</td></tr>
+          <tr><td>1990</td><td>353.40</td><td>330.22</td><td class="loss">−6.6%</td></tr>
+          <tr><td>2000</td><td>1,469.25</td><td>1,320.28</td><td class="loss">−10.1%</td></tr>
+          <tr><td>2001</td><td>1,320.28</td><td>1,148.08</td><td class="loss">−13.0%</td></tr>
+          <tr class="heavy"><td>2002</td><td>1,148.08</td><td>879.82</td><td class="loss">−23.4%</td></tr>
+          <tr class="heavy"><td>2008</td><td>1,468.36</td><td>903.25</td><td class="loss">−38.5%</td></tr>
+          <tr><td>2018</td><td>2,673.61</td><td>2,506.85</td><td class="loss">−6.2%</td></tr>
+          <tr><td>2022</td><td>4,766.18</td><td>3,839.50</td><td class="loss">−19.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">The "opened near" figure is the prior year's closing level — the standard way to read a calendar-year return. The actual January open differs by a fraction of a percent. With dividends reinvested, every loss above is a point or two milder; these are the price losses, the fall of the line itself.</p>
+
+    <p>Two things stand out from the column. The first is how varied the depths are — a −6% year and a −38% year are both "down years," and treating them as the same event is the first mistake. The second is that the worst of them cluster. 1973 and 1974 are not two stories but one: held together, the index fell from about 118 to under 69, a drop near <strong>−42% over two years</strong>. The early-2000s bust ran three years deep. The pain rarely lands and leaves in a single clean year.</p>
+  </section>
+
+  <section>
+    <span class="num">II.</span>
+    <h2>The arithmetic of <em>the hole.</em></h2>
+    <p>The cruelty of a drawdown is not in the loss. It is in the geometry of climbing back out, because percentages are not symmetric. A fall and the rise that undoes it are <em>not</em> the same number. Lose 10% and you need to gain 11.1% to break even. The gap widens the deeper you go, and it widens viciously.</p>
+
+    <figure>
+      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Recovery required to break even after a loss">
+        <defs>
+          <style>
+            .axt{font-family:'Spectral',serif;font-size:13px;fill:#7c7468}
+            .lossbar{fill:#8a2b22}
+            .gainbar{fill:#3d5a3a}
+            .barlbl{font-family:'Spectral',serif;font-size:12px;font-weight:600}
+            .hdr{font-family:'Spectral',serif;font-size:12px;letter-spacing:0.14em;fill:#7c7468}
+          </style>
+        </defs>
+        <text x="150" y="22" text-anchor="middle" class="hdr">THE LOSS</text>
+        <text x="450" y="22" text-anchor="middle" class="hdr">THE CLIMB BACK</text>
+        <line x1="300" y1="38" x2="300" y2="282" stroke="#d6cdbb" stroke-width="1"/>
+
+        <!-- rows: -10 / +11.1 -->
+        <text x="284" y="62" text-anchor="end" class="axt">−10%</text>
+        <rect x="226" y="50" width="58" height="16" class="lossbar"/>
+        <rect x="316" y="50" width="64" height="16" class="gainbar"/>
+        <text x="386" y="62" class="barlbl" fill="#3d5a3a">+11%</text>
+
+        <!-- -20 / +25 -->
+        <text x="284" y="98" text-anchor="end" class="axt">−20%</text>
+        <rect x="168" y="86" width="116" height="16" class="lossbar"/>
+        <rect x="316" y="86" width="145" height="16" class="gainbar"/>
+        <text x="467" y="98" class="barlbl" fill="#3d5a3a">+25%</text>
+
+        <!-- -29.7 (1974) / +42 -->
+        <text x="284" y="134" text-anchor="end" class="axt">−30%</text>
+        <rect x="112" y="122" width="172" height="16" class="lossbar"/>
+        <rect x="316" y="122" width="206" height="16" class="gainbar"/>
+        <text x="528" y="134" class="barlbl" fill="#3d5a3a">+43%</text>
+
+        <!-- -38.5 (2008) / +63 -->
+        <text x="284" y="170" text-anchor="end" class="axt">−38%</text>
+        <rect x="61" y="158" width="223" height="16" class="lossbar"/>
+        <rect x="316" y="158" width="252" height="16" class="gainbar"/>
+        <text x="528" y="170" class="barlbl" fill="#3d5a3a">+63%</text>
+
+        <!-- -50 / +100 -->
+        <text x="284" y="206" text-anchor="end" class="axt">−50%</text>
+        <rect x="10" y="194" width="274" height="16" class="lossbar"/>
+        <rect x="316" y="194" width="274" height="16" class="gainbar"/>
+        <text x="528" y="206" class="barlbl" fill="#3d5a3a">+100%</text>
+
+        <!-- -57 (2007 peak to 2009 trough) / +135 -->
+        <text x="284" y="242" text-anchor="end" class="axt">−57%</text>
+        <rect x="2" y="230" width="282" height="16" class="lossbar" opacity="0.6"/>
+        <rect x="316" y="230" width="282" height="16" class="gainbar" opacity="0.6"/>
+        <text x="450" y="242" text-anchor="middle" class="barlbl" fill="#3d5a3a">+135%</text>
+
+        <text x="300" y="275" text-anchor="middle" class="axt" font-style="italic">the deeper the hole, the further past symmetry the climb runs</text>
+      </svg>
+      <figcaption>The faded bottom row is the real 2007–2009 episode: from its October 2007 peak the index fell about 57% to its March 2009 trough — a hole that required a <em>135%</em> rise to fill. A 38% calendar loss like 2008 needs a 63% gain to undo. This asymmetry is why "it always comes back" is true and useless in the same breath: it comes back, but the return trip is always longer than the fall.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="lbl">What this means</span>
+      <p>Avoiding a deep drawdown is worth more than catching an equivalent gain, because the math is rigged against the recovery. This is not an argument for fleeing stocks — over decades the line still wins — but it is the reason a portfolio's <em>shape</em> matters as much as its average return. The depth of the hole you fall into governs how many years you spend climbing.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">III.</span>
+    <h2>The two that <em>mattered.</em></h2>
+    <p>Most down years are forgotten within a decade. Two were not. They are worth holding side by side because they failed differently — one slow and grinding, one sudden and total.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="yr">1973 – 1974</div>
+        <h3>The slow grind</h3>
+        <div class="big">−42%</div>
+        <p>Two consecutive losing years under stagflation and an oil shock. No single crash day — just a market that bled out over twenty-one months. The index would not reclaim its January 1973 peak in real terms for years. The lesson of the seventies is patience under a slow tide, not panic at a single wave.</p>
+      </div>
+      <div class="card">
+        <div class="yr">2008</div>
+        <h3>The sudden total</h3>
+        <div class="big">−38.5%</div>
+        <p>The worst single calendar year of the modern index. The line closed 2008 at 903.25 and kept falling into March 2009, bottoming near 666 — a peak-to-trough drawdown of roughly 57%, the deepest since the Second World War. It did not reclaim its 2007 high until 2013.</p>
+      </div>
+    </div>
+    <p>The shapes differ but the demand on the holder is identical: stay in the chair while the value of the chair appears to evaporate. Everyone agrees this is the correct move in hindsight. Almost no one finds it easy in the moment, which is the entire problem and the reason temperament, not intelligence, is the scarce resource here.</p>
+  </section>
+
+  <section>
+    <span class="num">IV.</span>
+    <h2>Sequence risk — why the <em>order</em> is crueler than the average.</h2>
+    <p>Here the down years connect to the retirement account, and it is the most underrated idea in the whole subject. The long-run <em>average</em> return of the index is a comforting fiction for anyone actually living through it, because you do not experience the average — you experience the sequence. And the sequence is dealt to you blind.</p>
+
+    <p>Two people can retire ten years apart into markets with identical average returns and end up in entirely different lives, purely because of <em>when</em> the bad years fell. The person who retired in 2000 and began drawing down their account met the dot-com bust and then 2008 in their first decade — selling shares to live on precisely while prices were lowest, locking the losses in. The person who retired in 2013 met a long climb first and built a cushion before any serious fall arrived. Same index, same average, opposite outcomes. This is <strong>sequence-of-returns risk</strong>, and it is why a target-date fund tilts toward bonds as retirement nears: not to earn more, but to shorten the holes in the years you can least afford a deep one.</p>
+
+    <div class="callout">
+      <span class="lbl">The connection</span>
+      <p>While you are <em>contributing</em> — buying every month — down years are a gift: you accumulate more shares cheaply, and a crash early in your life is the best thing that can happen to your eventual balance. While you are <em>withdrawing</em>, the same down year is a wound, because you sell into it. The identical event is a blessing or a catastrophe depending only on which side of the account's life you are standing on. You do not choose the year you retire into.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">V.</span>
+    <h2>What the Stoic does with a <em>down year.</em></h2>
+    <p>The dichotomy of control is the oldest tool for this and still the only one that works. The return of the index next year is not in your power. Whether a crash arrives the month you retire is not in your power. The sequence is dealt blind and there is no reading of charts, no Fibonacci level, no methodology that converts the unknowable into the known. To stake your peace on the line going up is to hand your tranquility to a thing that goes down one year in four on a schedule no one is shown.</p>
+
+    <p>What <em>is</em> in your power is the shape of the thing you hold, the size of the position relative to the years you have, and — above all — whether you stay in the chair. The down year does the same thing to everyone's account. It does not do the same thing to everyone's behaviour, and the gap between those two is the only place a long-term investor ever actually wins or loses. Marcus Aurelius did not have an index fund, but he had the relevant insight: <em>you have power over your mind, not over external events; realise this, and you will find strength.</em></p>
+
+    <blockquote>The line falling is not the problem to be solved. It is the condition to be planned for — and the temperament to meet it is built in the calm years, not the falling ones.</blockquote>
+  </section>
+
+  <div class="coda">
+    <p>The line goes down <strong>one year in four</strong>, and you are never told which year.</p>
+    <p>The depth of the fall, not the fact of it, is what should hold your attention: <strong>a 38% loss demands a 63% recovery</strong>, and a 57% fall demands 135%.</p>
+    <p>The same down year is a <strong>gift while you buy</strong> and a <strong>wound while you sell</strong> — sequence, not average, decides the outcome.</p>
+    <p>You cannot choose the year you retire into, the order of the crashes, or the return next January.</p>
+    <p>You can choose the shape of what you hold and <strong>whether you stay in the chair</strong> — and that, in the end, is the whole of the practice.</p>
+  </div>
+
+  <section>
+    <span class="num">Postscript.</span>
+    <h2>The two decades just past — <em>a glimpse.</em></h2>
+    <p>To set the down years in proportion, here are the most recent twenty — 2006 through 2025. <strong>Only four of them closed lower</strong> (2008, 2015, 2018, 2022), with 2011 finishing essentially flat — a stretch that ran a touch kinder than the long-run one-in-four. And yet it contains the worst year the modern index has ever had. That is the lesson of the window in one line: <em>the down years were rare, but one of them was devastating.</em> The right-hand column is again the price change of the line itself.</p>
+
+    <div class="ledger">
+      <table>
+        <caption>S&amp;P 500 — the last twenty years, by index level</caption>
+        <thead>
+          <tr><th>Year</th><th>Year-end close</th><th>Price change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2006</td><td>1,418.30</td><td class="gain">+13.6%</td></tr>
+          <tr><td>2007</td><td>1,468.36</td><td class="gain">+3.5%</td></tr>
+          <tr class="heavy"><td>2008</td><td>903.25</td><td class="loss">−38.5%</td></tr>
+          <tr><td>2009</td><td>1,115.10</td><td class="gain">+23.5%</td></tr>
+          <tr><td>2010</td><td>1,257.64</td><td class="gain">+12.8%</td></tr>
+          <tr><td>2011</td><td>1,257.60</td><td class="flat">≈ 0.0%</td></tr>
+          <tr><td>2012</td><td>1,426.19</td><td class="gain">+13.4%</td></tr>
+          <tr><td>2013</td><td>1,848.36</td><td class="gain">+29.6%</td></tr>
+          <tr><td>2014</td><td>2,058.90</td><td class="gain">+11.4%</td></tr>
+          <tr class="heavy"><td>2015</td><td>2,043.94</td><td class="loss">−0.7%</td></tr>
+          <tr><td>2016</td><td>2,238.83</td><td class="gain">+9.5%</td></tr>
+          <tr><td>2017</td><td>2,673.61</td><td class="gain">+19.4%</td></tr>
+          <tr class="heavy"><td>2018</td><td>2,506.85</td><td class="loss">−6.2%</td></tr>
+          <tr><td>2019</td><td>3,230.78</td><td class="gain">+28.9%</td></tr>
+          <tr><td>2020</td><td>3,756.07</td><td class="gain">+16.3%</td></tr>
+          <tr><td>2021</td><td>4,766.18</td><td class="gain">+26.9%</td></tr>
+          <tr class="heavy"><td>2022</td><td>3,839.50</td><td class="loss">−19.4%</td></tr>
+          <tr><td>2023</td><td>4,769.83</td><td class="gain">+24.2%</td></tr>
+          <tr><td>2024</td><td>5,881.63</td><td class="gain">+23.3%</td></tr>
+          <tr><td>2025</td><td>≈ 6,810</td><td class="gain">+15.8%</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td class="flbl">Average per year — simple mean</td><td></td><td class="fval gain">+10.4%</td></tr>
+          <tr><td class="flbl">Annualised — what compounding actually did</td><td></td><td class="fval gain">+8.9% / yr</td></tr>
+          <tr><td class="flbl">Cumulative — the whole twenty years, end to end</td><td></td><td class="fval gain">+446%</td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="tnote">Two averages, two truths. The <em>simple mean</em> (+10.4%) just adds the twenty yearly figures and divides — easy, but it always flatters reality, because a −38% year and a +38% year do not cancel. The <em>annualised</em> rate (+8.9%) is what your money actually grew at, year over year, once the down years took their cut — and the gap between the two is wider here than over ten years precisely because this window holds 2008. That ~1.5-point spread is the "volatility drag," the toll of the asymmetry from Section II. The cumulative +446% is the same story stated whole — about €1 becoming €5.46 over the twenty years, price only, before dividends. The 2025 close is approximate (~6,810, a ~16% price year); the rest are exact year-end levels.</p>
+  </section>
+
+  <div class="refs">
+    <h4>Sources &amp; further reading</h4>
+    <ol>
+      <li>Year-end index levels and the 2008 close of 903.25 (−38.5% on the year) from <em>Closing milestones of the S&amp;P 500</em>, Wikipedia, and S&amp;P Dow Jones Indices historical data.</li>
+      <li>Annual return counts — up in ~73% of years since 1928, down in ~27% — from the long-run S&amp;P 500 annual-return record (Slickcharts; Robert Shiller historical series).</li>
+      <li>The 2007 peak (1,565.15, 9 Oct 2007) to the March 2009 trough (~666), a ~57% drawdown, and the recovery to new highs in 2013, per Wikipedia and S&amp;P historical data.</li>
+      <li>Sequence-of-returns risk: the standard retirement-finance literature on withdrawal timing and the glide-path rationale behind target-date funds.</li>
+      <li>Marcus Aurelius, <em>Meditations</em>; Epictetus, <em>Enchiridion</em> — the dichotomy of control as applied to events outside one's power.</li>
+      <li>Last-twenty-years figures (2006–2025) from Macrotrends year-end S&amp;P 500 levels and the 2025 price return (~16%) reported by DQYDJ; the annualised +8.9% is the compound rate from the 2005 close (1,248.29) to the 2025 close.</li>
+    </ol>
+  </div>
+
+  <div class="end">— end</div>
+
+</div>
+</body>
+</html>

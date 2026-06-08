@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Own Everything, Predict Nothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3efe6;
+    --paper-2:#ece6d8;
+    --ink:#211e19;
+    --ink-soft:#4a443b;
+    --ink-faint:#7c7468;
+    --rule:#d6cdbb;
+    --rule-soft:#e2dac9;
+    --accent:#8a2b22;       /* oxblood */
+    --accent-soft:#b5453a;
+    --gain:#3d5a3a;         /* laurel */
+    --gold:#9c7c3a;
+    --maxw:680px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(156,124,58,0.06), transparent 55%),
+      radial-gradient(ellipse at 90% 120%, rgba(61,90,58,0.05), transparent 50%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,serif;
+    font-weight:400;font-size:19px;line-height:1.72;letter-spacing:0.003em;
+    text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 26px 8rem}
+
+  header.top{padding:5.5rem 0 0;text-align:center}
+  .kicker{font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+  .kicker .dot{color:var(--accent);padding:0 0.45em}
+  h1{font-weight:300;font-size:clamp(2.2rem,6.6vw,3.4rem);line-height:1.08;letter-spacing:-0.012em;margin:1.5rem 0 0}
+  h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .byline{margin-top:2.2rem;font-size:0.82rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint)}
+  .rule-orn{width:60px;height:1px;background:var(--rule);margin:2.6rem auto 0;position:relative}
+  .rule-orn::after{content:"§";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);background:var(--paper);padding:0 0.5rem;color:var(--accent);font-size:0.95rem}
+
+  .lede{margin-top:3.2rem;font-size:1.16rem;line-height:1.7}
+  .lede::first-letter{float:left;font-size:4.4rem;line-height:0.78;font-weight:300;padding:0.32rem 0.7rem 0 0;color:var(--accent);font-style:italic}
+
+  section{margin-top:3.6rem}
+  .num{font-size:0.78rem;letter-spacing:0.3em;color:var(--accent);font-weight:600;display:block;margin-bottom:0.7rem}
+  h2{font-weight:400;font-size:1.62rem;line-height:1.2;letter-spacing:-0.01em;margin:0 0 1.1rem}
+  h2 em{font-style:italic;color:var(--accent)}
+  p{margin:0 0 1.25rem}
+  p+p{margin-top:-0.2rem}
+  strong{font-weight:600}
+  em{font-style:italic}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  a:hover{border-color:var(--accent)}
+
+  .ledger{margin:2rem 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);font-variant-numeric:tabular-nums}
+  .ledger table{width:100%;border-collapse:collapse;font-size:0.93rem}
+  .ledger caption{caption-side:top;text-align:left;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-faint);padding:0 0 0.7rem}
+  .ledger th{text-align:right;font-weight:500;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);padding:0.55rem 0.4rem;border-bottom:1px solid var(--rule)}
+  .ledger th:first-child{text-align:left}
+  .ledger td{padding:0.5rem 0.4rem;text-align:right;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+  .ledger td:first-child{text-align:left;font-weight:500}
+  .ledger tr:last-child td{border-bottom:none}
+  .ledger .good{color:var(--gain);font-weight:600}
+  .ledger .warn{color:var(--accent);font-weight:600}
+  .ledger tr.heavy td{background:rgba(61,90,58,0.05)}
+  .tnote{font-size:0.86rem;color:var(--ink-faint);margin-top:0.7rem;font-style:italic}
+
+  figure{margin:2.6rem 0;text-align:center}
+  figure svg{max-width:100%;height:auto}
+  figcaption{font-size:0.86rem;color:var(--ink-soft);line-height:1.55;margin-top:1rem;text-align:left;border-left:2px solid var(--rule);padding-left:1rem}
+
+  .callout{margin:2.4rem 0;padding:1.5rem 1.7rem;background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--accent)}
+  .callout .lbl{font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:0.6rem}
+  .callout p:last-child{margin-bottom:0}
+  .callout.green{border-left-color:var(--gain)}
+  .callout.green .lbl{color:var(--gain)}
+
+  /* spec sheet for CSPX */
+  .spec{margin:2.2rem 0;border:1px solid var(--rule);background:var(--paper-2)}
+  .spec .head{padding:1.1rem 1.4rem;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+  .spec .tick{font-size:1.5rem;font-weight:600;letter-spacing:0.04em}
+  .spec .full{font-size:0.86rem;color:var(--ink-soft);font-style:italic}
+  .spec dl{margin:0;padding:0.6rem 1.4rem 1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:0.1rem 1.4rem}
+  .spec .row{display:flex;justify-content:space-between;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--rule-soft);font-size:0.92rem}
+  .spec dt{color:var(--ink-faint);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase}
+  .spec dd{margin:0;font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+
+  blockquote{margin:3rem 0;padding:0;border:none;text-align:center;font-size:1.36rem;font-weight:300;font-style:italic;line-height:1.42;color:var(--ink)}
+  blockquote .who{display:block;margin-top:1rem;font-size:0.78rem;font-style:normal;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint)}
+  blockquote::before{content:"“";color:var(--accent);font-size:1.3em;line-height:0;vertical-align:-0.35em}
+
+  .coda{margin:3.4rem 0 0;padding:2rem 0 0;border-top:2px solid var(--ink)}
+  .coda p{font-size:1.02rem;line-height:1.65;margin-bottom:0.9rem}
+  .coda p strong{color:var(--accent)}
+
+  .refs{margin-top:3.6rem;border-top:1px solid var(--rule);padding-top:1.6rem}
+  .refs h4{font-size:0.72rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin:0 0 1rem}
+  .refs ol{margin:0;padding-left:1.2rem;font-size:0.86rem;line-height:1.5;color:var(--ink-soft)}
+  .refs li{margin-bottom:0.6rem}
+  .disclaimer{margin-top:1.6rem;font-size:0.8rem;font-style:italic;color:var(--ink-faint);line-height:1.5}
+  .end{text-align:center;margin-top:3rem;color:var(--ink-faint);font-style:italic;font-size:0.9rem}
+
+  @media (max-width:560px){
+    body{font-size:18px}
+    .spec dl{grid-template-columns:1fr}
+    .ledger table{font-size:0.84rem}
+    .ledger th,.ledger td{padding:0.45rem 0.25rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">Study<span class="dot">·</span>on markets<span class="dot">·</span>part II</div>
+    <h1>Own everything, predict nothing, pay <em>almost nothing.</em></h1>
+    <div class="byline">On the low-cost index fund — Buffett's case, and what a Costa Rican actually buys</div>
+    <div class="rule-orn"></div>
+  </header>
+
+  <p class="lede">The greatest stock-picker of the last century spent his life choosing individual companies — and then instructed that, when he is gone, the money left to his wife should be put into a fund that chooses nothing at all. This is not a contradiction. It is the most honest piece of advice he ever gave, and the whole of it fits in two lines of a will. The harder question, once you accept it, is the boring one: <em>which</em> fund, bought <em>how</em>, from <em>where</em> — and for an investor in Costa Rica holding an Interactive Brokers account, the answer turns less on the fund than on the tax wrapper around it.</p>
+
+  <section>
+    <span class="num">I.</span>
+    <h2>The instruction in the <em>will.</em></h2>
+    <p>In his 2013 letter to Berkshire Hathaway shareholders, Warren Buffett described the directions he had left his trustee for the cash going to his wife. They were almost embarrassingly simple: put 10% in short-term government bonds and <strong>90% in a very low-cost S&amp;P 500 index fund</strong> — and he named Vanguard's. He added that he believed the trust's long-term result from this policy would beat that of most investors, whether pension funds, institutions, or individuals, who employ high-fee managers.</p>
+
+    <blockquote>The know-nothing investor who simply sits still — and pays almost nothing to do it — will beat most of the professionals trying very hard not to.<span class="who">— the Buffett thesis, in one breath</span></blockquote>
+
+    <p>The reasoning is not mystical. Buffett's claim rests on a piece of arithmetic so plain he called it an "iron law." The market return, before costs, is shared by everyone who is in the market — that is what an average <em>is</em>. The active managers, in aggregate, hold the same market and therefore earn the same gross return as everyone else. But they charge far more to do it. So in aggregate, after fees, the active crowd <em>must</em> underperform the people who simply bought the whole market cheaply. Not because they are foolish — many are brilliant — but because the mathematics of the average does not bend for talent.</p>
+  </section>
+
+  <section>
+    <span class="num">II.</span>
+    <h2>What "low-cost index fund" <em>actually means.</em></h2>
+    <p>Three words, each load-bearing. An <strong>index fund</strong> does not try to pick winners; it buys every company in a published list — for the S&amp;P 500, the roughly 500 largest US firms — in proportion to their size, and simply holds them. No analyst, no thesis, no view. When the index changes its list, the fund changes its holdings to match. That is the entire job.</p>
+    <p>It is <strong>low-cost</strong> precisely because there is no one to pay for cleverness. The yearly fee — the <em>total expense ratio</em>, or TER — on a good S&amp;P 500 index fund is between 0.02% and 0.07%. A typical actively managed fund charges 0.5% to 1%; a hedge fund historically took 2% of assets plus 20% of profits. These differences look trivial on a single year and are devastating across a lifetime, because the fee is subtracted every year from a sum that is meant to be compounding.</p>
+
+    <figure>
+      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The effect of fees on €10,000 compounded for 30 years">
+        <defs><style>
+          .ax{font-family:'Spectral',serif;font-size:12px;fill:#7c7468}
+          .vlbl{font-family:'Spectral',serif;font-size:13px;font-weight:600}
+          .flbl{font-family:'Spectral',serif;font-size:13px;font-weight:500;fill:#211e19}
+        </style></defs>
+        <line x1="150" y1="40" x2="150" y2="250" stroke="#d6cdbb"/>
+        <!-- index 0.07% -> 74,600 -->
+        <rect x="150" y="56" width="380" height="34" fill="#3d5a3a"/>
+        <text x="158" y="78" class="flbl" fill="#f3efe6">Index fund · 0.07% fee</text>
+        <text x="538" y="78" class="vlbl" fill="#3d5a3a">€74,600</text>
+        <!-- active 1% -> 57,400 -->
+        <rect x="150" y="116" width="292" height="34" fill="#9c7c3a"/>
+        <text x="158" y="138" class="flbl" fill="#f3efe6">Active fund · 1% fee</text>
+        <text x="450" y="138" class="vlbl" fill="#9c7c3a">€57,400</text>
+        <!-- hedge 2% -> 43,200 -->
+        <rect x="150" y="176" width="220" height="34" fill="#8a2b22"/>
+        <text x="158" y="198" class="flbl" fill="#f3efe6">High-fee · 2% / yr</text>
+        <text x="378" y="198" class="vlbl" fill="#8a2b22">€43,200</text>
+        <text x="150" y="238" class="ax">€10,000 invested · 7% gross return · 30 years · same market, same stocks</text>
+      </svg>
+      <figcaption>Identical underlying market; the only variable is the fee. Over thirty years a 2% annual charge turns a €64,600 gain into a €33,200 one — the manager's fee quietly consumes roughly <em>half</em> of what you would otherwise have made, without ever picking a single bad stock. This is the whole of Buffett's argument, drawn as a bar. (Illustrative compounding; not a forecast.)</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <span class="num">III.</span>
+    <h2>The million-dollar <em>bet.</em></h2>
+    <p>Buffett did not merely assert this; he wagered on it. In 2007 he offered $500,000 of his own money that no professional could pick a basket of at least five hedge funds that would, over ten years, beat a plain S&amp;P 500 index fund after fees. Ted Seides of Protégé Partners took the bet. The clock ran from 1 January 2008 — straight into the worst crash since the Depression — to 31 December 2017.</p>
+
+    <figure>
+      <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The 2008 to 2017 bet outcome">
+        <defs><style>
+          .t{font-family:'Spectral',serif}
+          .big{font-size:34px;font-weight:300}
+          .cap{font-size:13px;fill:#4a443b}
+          .sub{font-size:12px;fill:#7c7468;letter-spacing:0.1em;text-transform:uppercase}
+        </style></defs>
+        <text x="150" y="40" text-anchor="middle" class="t sub">S&amp;P 500 index fund</text>
+        <rect x="40" y="56" width="220" height="44" fill="#3d5a3a"/>
+        <text x="150" y="132" text-anchor="middle" class="t big" fill="#3d5a3a">+125.8%</text>
+        <text x="150" y="158" text-anchor="middle" class="t cap">net of fees, ten years</text>
+
+        <text x="450" y="40" text-anchor="middle" class="t sub">Five funds-of-hedge-funds</text>
+        <rect x="386" y="56" width="64" height="44" fill="#8a2b22"/>
+        <text x="450" y="132" text-anchor="middle" class="t big" fill="#8a2b22">+36.3%</text>
+        <text x="450" y="158" text-anchor="middle" class="t cap">average, net of fees</text>
+
+        <line x1="300" y1="30" x2="300" y2="170" stroke="#d6cdbb" stroke-dasharray="3 4"/>
+        <text x="300" y="200" text-anchor="middle" class="t cap" font-style="italic">the do-nothing fund won by more than three to one</text>
+      </svg>
+      <figcaption>The index fund Buffett chose returned about 125.8% over the decade; the five funds-of-funds averaged roughly 36.3%, net of their fees. The $1 million stake went to Girls Inc. of Omaha. The bet began in a market that lost more than half its value — and the passive side still won in a rout. Talent was present on the losing side; it was simply outrun by its own cost.</figcaption>
+    </figure>
+    <p>The lesson is not that hedge fund managers are incompetent. It is that the fee structure is a headwind no amount of skill reliably overcomes. Across twenty-year windows, something like 90% of active US large-cap funds fail to beat the index after costs — and the rare winners are nearly impossible to identify <em>in advance.</em></p>
+  </section>
+
+  <section>
+    <span class="num">IV.</span>
+    <h2>CSPX — the example, <em>dissected.</em></h2>
+    <p>So what does one of these funds actually look like? Take the one you named. CSPX is the iShares Core S&amp;P 500 UCITS ETF — the European-domiciled cousin of the US funds Buffett owns. It does precisely the dull thing described above: it physically holds all ~500 constituents of the S&amp;P 500, in their index weights, and reinvests the dividends rather than paying them out.</p>
+
+    <div class="spec">
+      <div class="head">
+        <span class="tick">CSPX</span>
+        <span class="full">iShares Core S&amp;P 500 UCITS ETF USD (Acc)</span>
+      </div>
+      <dl>
+        <div class="row"><dt>ISIN</dt><dd>IE00B5BMR087</dd></div>
+        <div class="row"><dt>Domicile</dt><dd>Ireland</dd></div>
+        <div class="row"><dt>Annual fee (TER)</dt><dd>0.07%</dd></div>
+        <div class="row"><dt>Income</dt><dd>Accumulating</dd></div>
+        <div class="row"><dt>Replication</dt><dd>Physical, ~503 holdings</dd></div>
+        <div class="row"><dt>Fund size</dt><dd>≈ $150 billion</dd></div>
+        <div class="row"><dt>Launched</dt><dd>May 2010</dd></div>
+        <div class="row"><dt>Price / share</dt><dd>≈ $806</dd></div>
+        <div class="row"><dt>LSE (USD)</dt><dd>CSPX</dd></div>
+        <div class="row"><dt>Xetra (EUR)</dt><dd>SXR8</dd></div>
+        <div class="row"><dt>Borsa Italiana</dt><dd>CSSPX</dd></div>
+        <div class="row"><dt>Manager</dt><dd>BlackRock</dd></div>
+      </dl>
+    </div>
+
+    <p>Two features matter most. <strong>Accumulating</strong> means dividends are rolled back into the fund automatically — nothing lands in your account to be taxed or reinvested by hand; the share price simply rises to reflect it. And <strong>Irish-domiciled</strong> — that single word is the reason this fund, rather than the cheaper US ones, is usually the right answer outside the United States. Why becomes clear in the next section.</p>
+  </section>
+
+  <section>
+    <span class="num">V.</span>
+    <h2>What a Costa Rican actually <em>buys</em> through IBKR.</h2>
+    <p>Through Interactive Brokers, a Costa Rican resident can buy two whole families of S&amp;P 500 fund: the <strong>US-domiciled</strong> ones listed in New York (VOO, IVV, SPLG, SPY), and the <strong>Irish-domiciled UCITS</strong> ones listed in London, Frankfurt, and Milan (CSPX, VUAA, and others). Both track the identical index. There is no shortage of choice — the practical menu is about a dozen funds. The decision is not really about the fund. It is about which side of the US tax border you want your money sitting on.</p>
+
+    <div class="ledger">
+      <table>
+        <caption>The practical menu on IBKR — same index, two tax worlds</caption>
+        <thead>
+          <tr><th>Fund</th><th>Domicile</th><th>Fee</th><th>Income</th></tr>
+        </thead>
+        <tbody>
+          <tr class="heavy"><td>VOO · Vanguard</td><td>USA</td><td>0.03%</td><td>Pays out</td></tr>
+          <tr class="heavy"><td>IVV · iShares</td><td>USA</td><td>0.03%</td><td>Pays out</td></tr>
+          <tr class="heavy"><td>SPLG · SPDR</td><td>USA</td><td>0.02%</td><td>Pays out</td></tr>
+          <tr class="heavy"><td>SPY · SPDR</td><td>USA</td><td>0.09%</td><td>Pays out</td></tr>
+          <tr><td>CSPX · iShares</td><td>Ireland</td><td>0.07%</td><td class="good">Accumulates</td></tr>
+          <tr><td>VUAA · Vanguard</td><td>Ireland</td><td>0.07%</td><td class="good">Accumulates</td></tr>
+          <tr><td>SPXS · Invesco</td><td>Ireland</td><td>0.05%</td><td class="good">Accumulates</td></tr>
+          <tr><td>VUSA · Vanguard</td><td>Ireland</td><td>0.07%</td><td>Pays out</td></tr>
+          <tr><td>SPY5 · SPDR</td><td>Ireland</td><td>0.03%</td><td>Pays out</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Shaded rows are US-domiciled — cheaper on paper, but they carry the two tax frictions below. The cheapest US fund (SPLG, 0.02%) and the cheapest Irish one (SPY5, 0.03%) are within a rounding error of each other; the fee is no longer the deciding factor.</p>
+    </div>
+
+    <p>Here is the fork, and it is sharp, because <strong>Costa Rica has no tax treaty with the United States</strong> — neither for income nor for estate tax. That absence changes everything.</p>
+
+    <p>On a <strong>US-domiciled</strong> fund (VOO, SPY…), two things bite a Costa Rican holder. First, US dividend withholding runs at the full <strong>30%</strong>, with no treaty to reduce it. Second, and far more serious: US-listed shares are "US-situs" assets, which means that on the holder's death the US estate tax applies to everything above a <strong>$60,000</strong> exemption, at rates climbing toward <strong>40%</strong>. A meaningful portfolio in VOO could lose a devastating slice to a tax most foreign investors never knew applied to them.</p>
+
+    <p>On an <strong>Irish-domiciled UCITS</strong> fund (CSPX, VUAA…), both frictions soften. The fund itself pays only <strong>15%</strong> US withholding on its dividends — the benefit of Ireland's own treaty with the US, passed through to you — and because the shares are Irish, not US, situs, they sit <strong>outside the US estate tax</strong> entirely. The $60,000 trap simply does not apply. Add the accumulating structure, which keeps dividends compounding untouched, and the Irish fund wins on the two axes that actually matter for a non-US, non-treaty investor — despite a slightly higher headline fee.</p>
+
+    <div class="callout green">
+      <span class="lbl">The practical reading</span>
+      <p>For most Costa Rican investors buying the S&amp;P 500 through IBKR, an Irish-domiciled accumulating UCITS fund — <strong>CSPX or VUAA</strong> — is the structurally cleaner choice: a 15% rather than 30% drag on dividends, no exposure to the US estate-tax trap above $60,000, and automatic reinvestment. The four-basis-point fee difference is noise beside those two facts. On the home side, Costa Rica's territorial system generally does not tax foreign-source investment income or capital gains — but that is exactly the point on which a local tax professional should confirm your specific situation.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">VI.</span>
+    <h2>The one variable you <em>own.</em></h2>
+    <p>Part I of this series argued that the market's direction is not in your power — it falls one year in four, on a schedule no one is shown. This is the companion truth. If you cannot control the return, you can at least refuse to pay a tax on it that buys you nothing. The fee is the rare variable in investing that is fully in your hands, fully knowable in advance, and fully certain in its effect. A manager's outperformance is a hope; a 2% fee is a guarantee, deducted whether the year was good or ruinous.</p>
+    <p>This is why the index fund is, quietly, a Stoic instrument. It asks you to give up the fantasy of beating the market and to master instead the things you actually govern: your costs, your tax wrapper, and your willingness to sit still through the down years. Buffett, who could beat the market, told his widow to stop trying — because the surer path was to own all of it, cheaply, and do nothing. The discipline is not in the choosing. It is in the not-touching.</p>
+
+    <blockquote>You cannot will the market upward. You can decline to hand a third of its gift to someone for the privilege of holding it for you.</blockquote>
+  </section>
+
+  <div class="coda">
+    <p>Buffett's instruction was two lines: <strong>90% in a very low-cost S&amp;P 500 index fund</strong>, 10% in short-term bonds.</p>
+    <p>"Low-cost index fund" means three things — <strong>own the whole list, pick nothing, pay almost nothing</strong> — and the third is the one that compounds.</p>
+    <p>He proved it with a bet: the index returned <strong>+125.8%</strong> against the hedge funds' +36.3% over ten years.</p>
+    <p>CSPX is one such fund — Irish, accumulating, 0.07% a year, holding all ~500 names.</p>
+    <p>For a Costa Rican on IBKR the real choice is the wrapper: <strong>an Irish UCITS fund (CSPX / VUAA) avoids the 30% dividend drag and the $60,000 US estate-tax trap</strong> that a US-domiciled fund carries.</p>
+    <p>The fee is the only certainty in the whole affair — so it is the one thing worth controlling.</p>
+  </div>
+
+  <div class="refs">
+    <h4>Sources &amp; further reading</h4>
+    <ol>
+      <li>Warren Buffett, Berkshire Hathaway shareholder letter, 2013 — the trustee instruction (90% low-cost S&amp;P 500 index fund, 10% short-term government bonds; Vanguard suggested).</li>
+      <li>The Buffett–Protégé Partners bet, 2008–2017: index fund ≈ +125.8% vs five funds-of-funds ≈ +36.3% net of fees; reported via CNBC and AEI from Berkshire's 2016–2017 letters.</li>
+      <li>CSPX fund facts (ISIN IE00B5BMR087, 0.07% TER, Irish domicile, accumulating, ~$150bn) from BlackRock/iShares fund pages and justETF, 2026.</li>
+      <li>UCITS menu and fees (VUAA, SPXS, SPY5, VUSA) from justETF and ETF Stream; SPY5 cut to 0.03% in Nov 2023, the cheapest European S&amp;P 500 TER.</li>
+      <li>US estate tax for non-resident aliens: $60,000 exemption, rates to 40% on US-situs assets; Irish-domiciled ETFs are non-US situs. Bogleheads "Nonresident alien taxation"; Wealthspire; CST Tax. Costa Rica is not on the US estate-tax-treaty list.</li>
+      <li>Costa Rican territorial taxation of foreign-source income and capital-gains treatment: country tax guides, 2026.</li>
+    </ol>
+    <p class="disclaimer">This document is educational and reflects general, time-sensitive information — not personalised financial, tax, or legal advice. Fees, tax rules, treaty status, and fund details change, and individual circumstances vary. Confirm current specifics with Interactive Brokers and a qualified Costa Rican tax adviser before acting.</p>
+  </div>
+
+  <div class="end">— end</div>
+
+</div>
+</body>
+</html>

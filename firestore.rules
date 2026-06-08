@@ -1,0 +1,26 @@
+rules_version = '2';
+
+// Ledger — Firestore security rules
+// Public read so a share link works (matches stoa); writes only by Gabriele.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthorized() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          'gabritupini@gmail.com',
+          'gabritupini3@gmail.com'
+        ];
+    }
+
+    // Calendar events — buys, sells, theses, observations.
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if isAuthorized();
+    }
+
+    // Everything else blocked.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
