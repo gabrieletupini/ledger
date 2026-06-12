@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Six Hundred Dollars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3efe6;
+    --paper-2:#ece6d8;
+    --ink:#211e19;
+    --ink-soft:#4a443b;
+    --ink-faint:#7c7468;
+    --rule:#d6cdbb;
+    --rule-soft:#e2dac9;
+    --accent:#8a2b22;       /* oxblood — the colour of the loss */
+    --accent-soft:#b5453a;
+    --gain:#3d5a3a;         /* muted laurel green — the recovery */
+    --gold:#9c7c3a;
+    --maxw:680px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(156,124,58,0.06), transparent 55%),
+      radial-gradient(ellipse at 90% 120%, rgba(138,43,34,0.05), transparent 50%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,serif;
+    font-weight:400;
+    font-size:19px;
+    line-height:1.72;
+    letter-spacing:0.003em;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* faint paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 26px 8rem}
+
+  /* ── masthead ── */
+  header.top{padding:5.5rem 0 0;text-align:center}
+  .kicker{
+    font-size:0.74rem;letter-spacing:0.32em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:500;
+  }
+  .kicker .dot{color:var(--accent);padding:0 0.45em}
+  h1{
+    font-weight:300;font-size:clamp(2.3rem,7vw,3.55rem);line-height:1.08;
+    letter-spacing:-0.012em;margin:1.5rem 0 0;
+  }
+  h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .byline{
+    margin-top:2.2rem;font-size:0.82rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .rule-orn{
+    width:60px;height:1px;background:var(--rule);margin:2.6rem auto 0;position:relative;
+  }
+  .rule-orn::after{
+    content:"§";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);
+    background:var(--paper);padding:0 0.5rem;color:var(--accent);font-size:0.95rem;
+  }
+
+  /* ── lede ── */
+  .lede{margin-top:3.2rem;font-size:1.16rem;line-height:1.7}
+  .lede::first-letter{
+    float:left;font-size:4.4rem;line-height:0.78;font-weight:300;
+    padding:0.32rem 0.7rem 0 0;color:var(--accent);font-style:italic;
+  }
+
+  /* ── sections ── */
+  section{margin-top:3.6rem}
+  .num{
+    font-size:0.78rem;letter-spacing:0.3em;color:var(--accent);font-weight:600;
+    display:block;margin-bottom:0.7rem;
+  }
+  h2{
+    font-weight:400;font-size:1.62rem;line-height:1.2;letter-spacing:-0.01em;
+    margin:0 0 1.1rem;
+  }
+  h2 em{font-style:italic;color:var(--accent)}
+  p{margin:0 0 1.25rem}
+  p+p{margin-top:-0.2rem}
+  strong{font-weight:600}
+  em{font-style:italic}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  a:hover{border-color:var(--accent)}
+  .src{color:var(--ink-faint);font-style:italic;font-size:0.94em}
+
+  /* ── data table ── */
+  .ledger{
+    margin:2rem 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .ledger table{width:100%;border-collapse:collapse;font-size:0.96rem}
+  .ledger caption{
+    caption-side:top;text-align:left;font-size:0.72rem;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--ink-faint);padding:0 0 0.7rem;
+  }
+  .ledger th{
+    text-align:right;font-weight:500;font-size:0.72rem;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--ink-faint);padding:0.55rem 0.5rem;
+    border-bottom:1px solid var(--rule);
+  }
+  .ledger th:first-child{text-align:left}
+  .ledger td{padding:0.5rem 0.5rem;text-align:right;border-bottom:1px solid var(--rule-soft)}
+  .ledger td:first-child{text-align:left;font-weight:500}
+  .ledger tr:last-child td{border-bottom:none}
+  .ledger .loss{color:var(--accent);font-weight:600}
+  .ledger .gain{color:var(--gain);font-weight:600}
+  .ledger .flat{color:var(--ink-faint);font-weight:600}
+  .ledger tr.heavy td{background:rgba(138,43,34,0.045)}
+  .ledger tfoot td{
+    border-top:1.5px solid var(--ink);border-bottom:none;
+    padding-top:0.6rem;font-size:0.92rem;
+  }
+  .ledger tfoot tr:first-child td{padding-top:0.8rem}
+  .ledger tfoot .flbl{text-align:left;font-weight:500;color:var(--ink-soft);font-style:italic}
+  .ledger tfoot .fval{font-weight:600;font-variant-numeric:tabular-nums}
+  .tnote{font-size:0.86rem;color:var(--ink-faint);margin-top:0.7rem;font-style:italic}
+
+  /* ── figure / svg ── */
+  figure{margin:2.6rem 0;text-align:center}
+  figure svg{max-width:100%;height:auto}
+  figcaption{
+    font-size:0.86rem;color:var(--ink-soft);line-height:1.55;margin-top:1rem;
+    text-align:left;border-left:2px solid var(--rule);padding-left:1rem;
+  }
+
+  /* ── callout ── */
+  .callout{
+    margin:2.4rem 0;padding:1.5rem 1.7rem;background:var(--paper-2);
+    border:1px solid var(--rule);border-left:3px solid var(--accent);
+  }
+  .callout .lbl{
+    font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;display:block;margin-bottom:0.6rem;
+  }
+  .callout p:last-child{margin-bottom:0}
+
+  /* ── card grid ── */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin:2.2rem 0}
+  .card{
+    background:var(--paper-2);border:1px solid var(--rule);padding:1.3rem 1.4rem;
+    position:relative;
+  }
+  .card .yr{
+    font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:600;
+  }
+  .card h3{font-weight:500;font-size:1.18rem;margin:0.3rem 0 0.55rem;line-height:1.2}
+  .card .big{
+    font-size:2.1rem;font-weight:300;color:var(--accent);line-height:1;
+    margin:0.2rem 0 0.7rem;font-variant-numeric:tabular-nums;
+  }
+  .card p{font-size:0.9rem;line-height:1.5;color:var(--ink-soft);margin:0}
+
+  /* ── pullquote ── */
+  blockquote{
+    margin:3rem 0;padding:0;border:none;text-align:center;
+    font-size:1.4rem;font-weight:300;font-style:italic;line-height:1.4;
+    color:var(--ink);
+  }
+  blockquote::before{content:"“";color:var(--accent);font-size:1.3em;line-height:0;vertical-align:-0.35em}
+  blockquote::after{content:"”";color:var(--accent);font-size:1.3em;line-height:0;vertical-align:-0.55em}
+
+  /* ── closing summary ── */
+  .coda{
+    margin:3.4rem 0 0;padding:2rem 0 0;border-top:2px solid var(--ink);
+  }
+  .coda p{font-size:1.02rem;line-height:1.65;margin-bottom:0.9rem}
+  .coda p strong{color:var(--accent)}
+
+  /* ── references ── */
+  .refs{margin-top:3.6rem;border-top:1px solid var(--rule);padding-top:1.6rem}
+  .refs h4{
+    font-size:0.72rem;letter-spacing:0.26em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:600;margin:0 0 1rem;
+  }
+  .refs ol{margin:0;padding-left:1.2rem;font-size:0.86rem;line-height:1.5;color:var(--ink-soft)}
+  .refs li{margin-bottom:0.6rem}
+  .refs em{font-style:italic}
+
+  .end{text-align:center;margin-top:3rem;color:var(--ink-faint);font-style:italic;font-size:0.9rem}
+
+  @media (max-width:560px){
+    body{font-size:18px}
+    .cards{grid-template-columns:1fr}
+    .ledger table{font-size:0.88rem}
+    .ledger th,.ledger td{padding:0.45rem 0.3rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">Study<span class="dot">·</span>on wages<span class="dot">·</span>part I</div>
+    <h1>The number on the cheque kept rising. The life it bought <em>stopped.</em></h1>
+    <div class="byline">On wage stagnation, the price of a family, and what $600 in 1980 actually was</div>
+    <div class="rule-orn"></div>
+  </header>
+
+  <p class="lede">Ask a man who was thirty in 1980 what he earned and the figure sounds quaint — a few hundred a week, maybe six hundred dollars by the time the kids came. Then he tells you what that money did: a house on one income, a wife who didn't have to work, three children, a car in the drive, a holiday once a year. The figure is small and the life is large. Forty-six years later the figures are large and the life has gone small. This is not nostalgia. It is arithmetic, and the arithmetic is unkind.</p>
+
+  <section>
+    <span class="num">I.</span>
+    <h2>The flat line, <em>first.</em></h2>
+    <p>Begin with the wage itself, stripped of inflation. The American worker's <em>real</em> hourly pay — what an hour of labour actually buys — peaked around 1973 and has, for most of the workforce, drifted sideways ever since. The Pew Research Center put it plainly: the average hourly wage in 2018, adjusted for inflation, had about the same purchasing power it did in <strong>1978</strong>. Forty years. The same hour, the same bread.</p>
+    <p>That flatness is not because the country stopped getting richer. It got far richer. The gap is where the money went. The Economic Policy Institute tracks the two lines that used to move together — what workers produce per hour, and what they are paid for it. From 1979 onward they split.</p>
+
+    <figure>
+      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Productivity versus typical worker pay, 1979 to 2023">
+        <defs>
+          <style>
+            .axt{font-family:'Spectral',serif;font-size:13px;fill:#7c7468}
+            .hdr{font-family:'Spectral',serif;font-size:12px;letter-spacing:0.14em;fill:#7c7468}
+            .lbl{font-family:'Spectral',serif;font-size:13px;font-weight:600}
+            .lblit{font-family:'Spectral',serif;font-size:12px;font-style:italic;fill:#7c7468}
+          </style>
+        </defs>
+        <!-- baseline 0% -->
+        <line x1="60" y1="250" x2="575" y2="250" stroke="#d6cdbb" stroke-width="1"/>
+        <text x="56" y="254" text-anchor="end" class="axt">0%</text>
+        <text x="56" y="120" text-anchor="end" class="axt">+50%</text>
+        <line x1="60" y1="116" x2="575" y2="116" stroke="#e2dac9" stroke-width="1" stroke-dasharray="3 4"/>
+        <text x="56" y="46" text-anchor="end" class="axt">+80%</text>
+        <line x1="60" y1="42" x2="575" y2="42" stroke="#e2dac9" stroke-width="1" stroke-dasharray="3 4"/>
+        <!-- x labels -->
+        <text x="60" y="272" text-anchor="middle" class="axt">1979</text>
+        <text x="575" y="272" text-anchor="middle" class="axt">2023</text>
+        <!-- productivity line, to +80% -->
+        <path d="M 60 250 C 220 200, 300 110, 575 42" fill="none" stroke="#3d5a3a" stroke-width="2.6" stroke-linecap="round"/>
+        <text x="572" y="34" text-anchor="end" class="lbl" fill="#3d5a3a">Productivity  +80%</text>
+        <!-- typical pay line, to ~+14% -->
+        <path d="M 60 250 C 240 244, 420 232, 575 213" fill="none" stroke="#8a2b22" stroke-width="2.6" stroke-linecap="round"/>
+        <text x="572" y="207" text-anchor="end" class="lbl" fill="#8a2b22">Typical pay  +14%</text>
+        <!-- the gap brace -->
+        <line x1="540" y1="42" x2="540" y2="213" stroke="#9c7c3a" stroke-width="1" stroke-dasharray="2 3"/>
+        <text x="300" y="160" text-anchor="middle" class="lblit">the wedge that became someone else's income →</text>
+      </svg>
+      <figcaption>Net productivity rose about <strong>80%</strong> between 1979 and 2023; the pay of the typical (production and non-supervisory) worker rose roughly <strong>14%</strong> in real terms over the same span. The two had climbed together for the previous thirty years. The wedge between the lines did not vanish — it accrued to capital and to the top of the wage scale. <span class="src">(Economic Policy Institute, productivity–pay tracker.)</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <span class="num">II.</span>
+    <h2>What six hundred dollars <em>was.</em></h2>
+    <p>Now the conversion the whole argument turns on. Take that $600 a month a young father might have brought home around 1980 and ask what sum today holds the same purchasing power. The official tool is the Consumer Price Index: a number that was about <strong>82</strong> in 1980 and sits near <strong>325</strong> today. Divide the second by the first and you have the multiplier.</p>
+
+    <div class="ledger">
+      <table>
+        <caption>$600 then, in today's money — by the official price index</caption>
+        <thead>
+          <tr><th>Base year</th><th>CPI then</th><th>CPI now</th><th>Multiplier</th><th>$600 becomes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1980</td><td>82.4</td><td>~325</td><td>3.9×</td><td class="flat">$2,360</td></tr>
+          <tr><td>1978</td><td>65.2</td><td>~325</td><td>5.0×</td><td class="flat">$2,990</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td class="flbl" colspan="4">$600 of late-1970s / 1980 money, restated for 2026</td><td class="fval">$2,400 – $3,000</td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="tnote">CPI-U, all items, U.S. city average (BLS). 1978 ≈ 65.2, 1980 ≈ 82.4, 2025–26 ≈ 320–330. The exact figure drifts with the month; the band $2,400–$3,000 is robust.</p>
+
+    <p>So the instinct is exactly right. <strong>Six hundred 1980 dollars is two-and-a-half to three thousand of ours.</strong> Run it the other way and it lands in the same place: a $3,000 monthly wage today, divided by the ~5× index since 1978, is worth about $600 in the money your father counted. The big number on your payslip and the small number on his are, to the index, the <em>same wage.</em></p>
+
+    <div class="callout">
+      <span class="lbl">The catch the index hides</span>
+      <p>If a paycheque merely tracks the CPI, it has stood still — and standing still is the optimistic case. The CPI is an average over everything a household buys, including the things that got cheaper. The family-forming basket — a house, a degree, a doctor — did not track the average. It ran away from it. Matching inflation was never enough to buy the 1980 life, because the 1980 life is priced in the items that rose fastest.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">III.</span>
+    <h2>The basket <em>changed shape.</em></h2>
+    <p>This is the part the single word "inflation" conceals. Prices did not rise evenly by 4×. Some essentials of an ordinary life rose far more, a few rose less, and the average — the CPI — sat politely in the middle while the things a young family must buy went vertical.</p>
+
+    <div class="ledger">
+      <table>
+        <caption>One ordinary life, priced 1980 vs 2026 (U.S., approximate)</caption>
+        <thead>
+          <tr><th>Item</th><th>1980</th><th>2026</th><th>Multiple</th></tr>
+        </thead>
+        <tbody>
+          <tr class="heavy"><td>Public university, in-state, per year</td><td>$840</td><td>$11,600</td><td class="loss">13.8×</td></tr>
+          <tr class="heavy"><td>Median home price</td><td>$62,200</td><td>$420,000</td><td class="loss">6.8×</td></tr>
+          <tr><td>New car (average paid)</td><td>$7,200</td><td>$48,000</td><td class="loss">6.7×</td></tr>
+          <tr><td>Median rent, monthly</td><td>$243</td><td>$1,500</td><td class="loss">6.2×</td></tr>
+          <tr><td>Average hourly wage</td><td>$6.85</td><td>$30.50</td><td class="flat">4.5×</td></tr>
+          <tr><td><em>— the price index (CPI)</em></td><td>82.4</td><td>~325</td><td class="flat">3.9×</td></tr>
+          <tr><td>Loaf of bread</td><td>$0.50</td><td>$2.00</td><td class="flat">4.0×</td></tr>
+          <tr><td>Federal minimum wage</td><td>$3.10</td><td>$7.25</td><td class="gain">2.3×</td></tr>
+          <tr><td>Gallon of gasoline</td><td>$1.19</td><td>$3.40</td><td class="gain">2.9×</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">Rows ordered by multiple. Sources: BLS (CPI, average hourly earnings, minimum wage, food, fuel), Census &amp; NAR (home price, rent), College Board (tuition), Kelley Blue Book (vehicles). Figures rounded; "2026" uses the latest available year.</p>
+
+    <p>Read the column once more. The wage rose <strong>4.5×</strong> — a hair above the CPI, which is why economists can say real pay is "roughly flat." But the roof over the family rose <strong>6.8×</strong>, the rent <strong>6.2×</strong>, and the diploma that used to cost a summer's work now costs <strong>13.8×</strong> what it did. The only things that became <em>cheaper</em> in real terms are at the bottom — the petrol and, shamefully, the wage floor itself. A worker on the federal minimum today commands less than half the bread his 1980 counterpart did.</p>
+  </section>
+
+  <section>
+    <span class="num">IV.</span>
+    <h2>The young father, <em>then and now.</em></h2>
+    <p>Put a thirty-year-old man with a wife and a child beside his grandfather at the same age. Give each the median earnings of his moment. The cheque is bigger for the grandson; the ground beneath it is not.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="yr">1980 · one income</div>
+        <h3>Earns ~$19k a year</h3>
+        <div class="big">3.3×</div>
+        <p>The median home costs about $62,000 — roughly <strong>3.3 years</strong> of his single salary. A 20% deposit is a year's pay, saved. His wife need not work; the mortgage and the groceries fit one envelope. Three children is ordinary. A state degree for them, later, costs a few hundred a year.</p>
+      </div>
+      <div class="card">
+        <div class="yr">2026 · two incomes, often</div>
+        <h3>Earns ~$62k a year</h3>
+        <div class="big">6.8×</div>
+        <p>The median home costs about $420,000 — nearly <strong>7 years</strong> of his salary, and the deposit alone is more than a full year's pay. One income rarely clears it; childcare can rival a second rent. The same degree for his child runs past $11,000 a year. So he has fewer children, later — or none.</p>
+      </div>
+    </div>
+
+    <p>The single statistic that carries the whole essay is that ratio: the price of the median house measured in years of a single median wage. It stood near <strong>3.3</strong> in 1980. It stands near <strong>6.8</strong> today. It <em>doubled.</em> Everything else — the second earner pulled into work, the delayed marriage, the shrinking family — follows from a house that costs twice as many years of a man's life as it used to.</p>
+  </section>
+
+  <section>
+    <span class="num">V.</span>
+    <h2>The house unbought, the child <em>unhad.</em></h2>
+    <p>Behaviour bends around arithmetic. When the down payment moved out of reach, the age at which Americans first buy a home climbed with it: the National Association of Realtors put the median first-time buyer at <strong>29</strong> in 1981 and at <strong>38</strong> in 2024 — the oldest on record. A whole decade of adult life now passes before the key turns, if it turns at all.</p>
+    <p>And the family that the house was meant to hold shrank to match. The U.S. fertility rate fell from about <strong>1.84</strong> births per woman in 1980 to roughly <strong>1.6</strong> today, a record low. The large family on a single wage — the thing the 1980 father took for granted — has become a luxury good, available to the wealthy and to the indifferent, and to almost no one in between. People are not choosing smaller lives because they want less. They are pricing the life they want and finding the quote impossible.</p>
+
+    <blockquote>His wage was a fraction of yours, and it bought a house, a wife at home, and three children. Yours bought the right to keep renting.</blockquote>
+  </section>
+
+  <div class="coda">
+    <p>The honest summary is short. <strong>Pay, adjusted for inflation, has barely moved since the late 1970s</strong> — the same hour now buys about what it bought your grandfather. <strong>The things that make a family — a house, a rent, an education — outran that flat wage by two to four times over.</strong> And so the $600 he counted, which is your $2,500 to $3,000, was the richer sum, because it was pointed at a world that hadn't yet run away.</p>
+    <p>None of this is an argument for despair, and none of it is the worker's failing. It is a structural fact to be planned around with open eyes: that the paycheque is not the measure — the <em>ratio</em> is, the years of your life a roof now costs. Read the ratio, not the number. The number lies; the ratio never has.</p>
+  </div>
+
+  <div class="refs">
+    <h4>Sources &amp; further reading</h4>
+    <ol>
+      <li>Pew Research Center (2018). <em>For most U.S. workers, real wages have barely budged in decades.</em></li>
+      <li>Economic Policy Institute. <em>The Productivity–Pay Gap</em> (updated tracker; ~80% productivity vs ~14% typical pay, 1979–2023).</li>
+      <li>U.S. Bureau of Labor Statistics. <em>CPI-U, all items</em>; <em>Average hourly earnings, production and nonsupervisory employees</em>; <em>History of the federal minimum wage.</em></li>
+      <li>U.S. Census Bureau &amp; National Association of Realtors. <em>Median sales price of houses</em>; <em>Profile of Home Buyers and Sellers</em> (first-time buyer median age, 29 in 1981 → 38 in 2024).</li>
+      <li>College Board. <em>Trends in College Pricing</em> (in-state public four-year tuition, 1980 vs present).</li>
+      <li>CDC / National Center for Health Statistics. <em>Total fertility rate, United States, 1980–present.</em></li>
+    </ol>
+  </div>
+
+  <p class="end">— end of part I —</p>
+
+</div>
+</body>
+</html>

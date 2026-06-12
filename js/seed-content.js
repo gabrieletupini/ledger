@@ -24,6 +24,13 @@ export const CATEGORIES = [
       { key: 'snp500', label: 'S&P 500' },
     ],
   },
+  {
+    key: 'macro',
+    label: 'Macro',
+    subcategories: [
+      { key: 'wages', label: 'Wages & Cost of Living' },
+    ],
+  },
 ];
 
 // Look-ups
