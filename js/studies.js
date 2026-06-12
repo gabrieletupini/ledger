@@ -10,8 +10,8 @@ export const STUDIES = [
     id: 'wages-six-hundred-dollars',
     title: 'Six Hundred Dollars',
     excerpt:
-      "Real pay has barely moved since the late 1970s — the same hour now buys what it bought your grandfather. But the things that make a family — a house, a rent, a degree — outran that flat wage two- to fourfold. Why $600 in 1980 was the richer sum, worked out in full.",
-    readingMinutes: 12,
+      "Why the line went flat: a central bank that prints pays the worker last, in money it has already diluted, while the assets the new money inflates run away from him. The Cantillon effect, the engineer paid down to a 1980 wage, and why $600 then was the richer sum — worked out in full.",
+    readingMinutes: 16,
     file: 'studies/macro/wages/six-hundred-dollars.html',
     publishedAt: '2026-06-12',
     category: 'macro',
